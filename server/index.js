@@ -7,7 +7,13 @@ dotenv.config();
 
 const server = http.createServer(app);
 const { Server } = require("socket.io");
-const io = new Server(server);
+
+const io = new Server(server, {
+  cors: {
+    origin: "*", // or a specific origin like "http://localhost:3000"
+    methods: ["GET", "POST"]
+  }
+});
 
 app.use(cors());
 app.use((req, res, next) => {

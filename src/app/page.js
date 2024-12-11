@@ -19,10 +19,11 @@ export default function Home({ params }) {
   const [messages, setMessages] = useState([]);
 
   const server = process.env.NEXT_PUBLIC_SERVER_URL;
+  console.log(server)
   const connectionOptions = {
-    "force new connection": true,
-    reconnectionAttempts: "Infinity",
-    timeout: 10000,
+    forceNew: true,
+    reconnectionAttempts: Infinity,
+    timeout: 50000,
     transports: ["websocket"],
   };
 
@@ -46,7 +47,7 @@ export default function Home({ params }) {
 
     // ping server every 2 min to prevent render server from sleeping
     socket.on("ping", () => {
-      settimeout(() => {
+      setTimeout(() => {
         socket.emit("pong");
       }, 120000);
     });
